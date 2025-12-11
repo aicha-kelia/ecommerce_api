@@ -9,6 +9,9 @@ class Customer(models.Model):
     address = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
+    class Meta:
+        ordering = ['-created_at']
+    
     def __str__(self):
         return self.name
 
@@ -29,6 +32,9 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
     
     @property
     def average_rating(self):
@@ -58,6 +64,9 @@ class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-order_date']
     
     @property
     def total_amount(self):
@@ -93,6 +102,7 @@ class Review(models.Model):
     
     class Meta:
         unique_together = ('product', 'customer')
+        ordering = ['-created_at']
     
     def __str__(self):
         return f"{self.customer.name} - {self.product.name} ({self.rating}★)"
