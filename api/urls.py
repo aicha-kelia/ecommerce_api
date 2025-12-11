@@ -2,7 +2,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
     CustomerViewSet, ProductViewSet, OrderViewSet, 
-    OrderItemViewSet, ReviewViewSet
+    OrderItemViewSet, ReviewViewSet,
+    register, login, logout  # ← ADD THESE
 )
 
 router = DefaultRouter()
@@ -14,4 +15,8 @@ router.register(r'reviews', ReviewViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    # Auth endpoints
+    path('auth/register/', register, name='register'),
+    path('auth/login/', login, name='login'),
+    path('auth/logout/', logout, name='logout'),
 ]
